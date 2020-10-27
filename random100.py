@@ -4,7 +4,7 @@ import random
 import sys
 from PyQt5.QtWidgets import QTableWidgetItem
 
-
+# ПРОВЕРКА ГИТА
 class mywindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(mywindow, self).__init__()
