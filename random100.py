@@ -1,10 +1,17 @@
 from PyQt5 import QtWidgets, QtCore, QtGui, QtPrintSupport
-from qq import Ui_MainWindow  # импорт нашего сгенерированного файла
+from qq import Ui_MainWindow, Ui_MainWindow2 # импорт нашего сгенерированного файла
 import random
 import sys
 from PyQt5.QtWidgets import QTableWidgetItem
 
-# ПРОВЕРКА ГИТА
+class mywindow2(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(mywindow2, self).__init__()
+        self.ui = Ui_MainWindow2()
+        self.ui.setupUi(self)
+
+
+
 class mywindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(mywindow, self).__init__()
@@ -13,6 +20,7 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.pushButton.clicked.connect(self.clickbut)
         self.ui.pushButton2.clicked.connect(self.print_doc)
         self.ui.pushButton3.clicked.connect(self.preview)
+        self.ui.pushButton4.clicked.connect(self.new_form)
         self.ui.tableWidget.setHorizontalHeaderLabels(["j=1", "j=2", "j=3", "j=4", "j=5", "j=6", "j=7", "j=8", "j=9", "j=10", "j=11",
                                                        "j=12", "j=13", "j=14", "j=15", "j=16", "j=17", "j=18", "j=19", "j=20", "j=21",
                                                        "j=22", "j=23", "j=24", "j=25"])
@@ -57,6 +65,7 @@ class mywindow(QtWidgets.QMainWindow):
         ran1 = random.randint(A, B)
         a.append(ran1)
         b = []
+        massX = []
         i = 1
         while i < 50:
             ran2 = random.randint(A, B)
@@ -76,8 +85,10 @@ class mywindow(QtWidgets.QMainWindow):
                 m += 1
             if k == z + 1:
                 b.append(1)
+                massX.append('')
             else:
                 b.append(0)
+                massX.append('X')
             z += 1
 
         # Разделение на 4 массива
@@ -85,7 +96,12 @@ class mywindow(QtWidgets.QMainWindow):
         list_2 = b[25:50]
         list_3 = b[50:75]
         list_4 = b[75:100]
-        # Преобразование в Кортеж со списком внутри
+        massX_1 = massX[0:25]
+        massX_2 = massX[25:50]
+        massX_3 = massX[50:75]
+        massX_4 = massX[75:100]
+
+        # Преобразование в Кортеж со списком внутри (1 столбец row=0)
         listt_1 = []
         listt_2 = []
         listt_3 = []
@@ -99,38 +115,78 @@ class mywindow(QtWidgets.QMainWindow):
         q4 = tuple(list_4)
         listt_4.append(q4)
 
+        # Преобразование в Кортеж со списком внутри (3 столбец row=2)
+        m_1 = []
+        m_2 = []
+        m_3 = []
+        m_4 = []
+        y1 = tuple(massX_1)
+        m_1.append(y1)
+        y2 = tuple(massX_2)
+        m_2.append(y2)
+        y3 = tuple(massX_3)
+        m_3.append(y3)
+        y4 = tuple(massX_4)
+        m_4.append(y4)
+
         # Заполнение таблиц
-        row = 0
         for tup in listt_1:
             col = 0
             for item in tup:
                 cellinfo1 = QTableWidgetItem(str(item))
-                self.ui.tableWidget.setItem(row, col, cellinfo1)
+                self.ui.tableWidget.setItem(0, col, cellinfo1)
                 cellinfo1.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
                 col += 1
-        row = 0
         for tup in listt_2:
             col = 0
             for item in tup:
                 cellinfo2 = QTableWidgetItem(str(item))
-                self.ui.tableWidget2.setItem(row, col, cellinfo2)
+                self.ui.tableWidget2.setItem(0, col, cellinfo2)
                 cellinfo2.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
                 col += 1
-        row = 0
         for tup in listt_3:
             col = 0
             for item in tup:
                 cellinfo3 = QTableWidgetItem(str(item))
-                self.ui.tableWidget3.setItem(row, col, cellinfo3)
+                self.ui.tableWidget3.setItem(0, col, cellinfo3)
                 cellinfo3.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
                 col += 1
-        row = 0
         for tup in listt_4:
             col = 0
             for item in tup:
                 cellinfo4 = QTableWidgetItem(str(item))
-                self.ui.tableWidget4.setItem(row, col, cellinfo4)
+                self.ui.tableWidget4.setItem(0, col, cellinfo4)
                 cellinfo4.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
+                col += 1
+
+
+        for tup in m_1:
+            col = 0
+            for item in tup:
+                cellinfo11 = QTableWidgetItem(str(item))
+                self.ui.tableWidget.setItem(2, col, cellinfo11)
+                cellinfo11.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
+                col += 1
+        for tup in m_2:
+            col = 0
+            for item in tup:
+                cellinfo12 = QTableWidgetItem(str(item))
+                self.ui.tableWidget2.setItem(2, col, cellinfo12)
+                cellinfo12.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
+                col += 1
+        for tup in m_3:
+            col = 0
+            for item in tup:
+                cellinfo13 = QTableWidgetItem(str(item))
+                self.ui.tableWidget3.setItem(2, col, cellinfo13)
+                cellinfo13.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
+                col += 1
+        for tup in m_4:
+            col = 0
+            for item in tup:
+                cellinfo14 = QTableWidgetItem(str(item))
+                self.ui.tableWidget4.setItem(2, col, cellinfo14)
+                cellinfo14.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
                 col += 1
 
     def preview(self):
@@ -162,7 +218,16 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.centralwidget.render(painter)
         painter.end()
 
+    def new_form(self):
+        self.qwe = mywindow2()
+        self.qwe.show()
+
+
 app = QtWidgets.QApplication([])
 application = mywindow()
 application.show()
+# qwe = mywindow2()
+# qwe.show()
 sys.exit(app.exec())
+
+

@@ -56,6 +56,13 @@ class Ui_MainWindow(object):
         self.pushButton3.setIconSize(QtCore.QSize(150, 150))
         self.pushButton3.setShortcut("")
         self.pushButton3.setObjectName("pushButton")
+        # Кнопка NEW_window
+        self.pushButton4 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton4.setGeometry(QtCore.QRect(70, 510, 40, 40))
+        self.pushButton4.setFont(font)
+        self.pushButton4.setIconSize(QtCore.QSize(150, 150))
+        self.pushButton4.setShortcut("")
+        self.pushButton4.setObjectName("Window")
         # Виджеты
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(1, 10, 1040, 115))
@@ -89,9 +96,38 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Random"))
         # self.pushButton.setText(_translate("MainWindow", "Пуск"))
         # self.pushButton2.setText(_translate("MainWindow", "Печать"))
         # self.pushButton3.setText(_translate("MainWindow", "Просмотр"))
+
+class Ui_MainWindow2(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow2")
+        MainWindow.setEnabled(True)
+        MainWindow.resize(500, 500)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(140, 400, 100, 40))
+        self.pushButton.setObjectName("Сгенерировать")
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
+        self.menubar.setObjectName("menubar")
+        MainWindow.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.statusbar.setObjectName("statusbar")
+        MainWindow.setStatusBar(self.statusbar)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "Генератор случайных чисел"))
+        self.pushButton.setText(_translate("MainWindow", "PushButton"))
+
