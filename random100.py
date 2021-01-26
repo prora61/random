@@ -3,6 +3,7 @@ from qq import Ui_MainWindow, Ui_MainWindow2 # импорт нашего сге�
 import random
 import sys
 from PyQt5.QtWidgets import QTableWidgetItem
+import os
 
 global A, B, W
 
@@ -43,6 +44,10 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.pushButton2.clicked.connect(self.print_doc)
         self.ui.pushButton3.clicked.connect(self.preview)
         self.ui.pushButton4.clicked.connect(self.new_form)
+        self.ui.pushButton5.clicked.connect(self.data_transfer)
+        self.ui.pushButton6.clicked.connect(self.data_transfer_2)
+        self.ui.pushButton5.setEnabled(False)
+        self.ui.pushButton6.setEnabled(False)
         self.ui.tableWidget.setHorizontalHeaderLabels(["j=1", "j=2", "j=3", "j=4", "j=5", "j=6", "j=7", "j=8", "j=9", "j=10", "j=11",
                                                        "j=12", "j=13", "j=14", "j=15", "j=16", "j=17", "j=18", "j=19", "j=20", "j=21",
                                                        "j=22", "j=23", "j=24", "j=25"])
@@ -81,6 +86,10 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.tableWidget4.resizeColumnsToContents()
 
     def clickbut(self):
+        flag1: bool
+        flag1 = False
+        flag2: bool
+        flag2 = False
         # Заполнение тест-предметов с исключениями
         try:
             massX = []
@@ -218,6 +227,7 @@ class mywindow(QtWidgets.QMainWindow):
                     self.ui.tableWidget4.setItem(2, col, cellinfo14)
                     cellinfo14.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
                     col += 1
+            flag1 = True
         except ValueError:
             QtWidgets.QMessageBox.warning(self, 'Ошибка', 'Введите натуральное число тест-предметов')
             self.ui.lineEdit2.clear()
@@ -246,6 +256,8 @@ class mywindow(QtWidgets.QMainWindow):
             t_3 = transfer[50:75]
             t_4 = transfer[75:100]
 
+            self.ui.t_sum_1 = transfer[0:50]
+            self.ui.t_sum_2 = transfer[50:100]
             # Преобразование в Кортеж со списком внутри (1 столбец row=0)
             tt_1 = []
             tt_2 = []
@@ -288,12 +300,16 @@ class mywindow(QtWidgets.QMainWindow):
                     self.ui.tableWidget4.setItem(1, col, cell4)
                     cell4.setTextAlignment(QtCore.Qt.AlignVCenter | QtCore.Qt.AlignCenter)
                     col += 1
+            flag2 = True
         except ValueError:
             QtWidgets.QMessageBox.warning(self, 'Ошибка', 'Введите натуральное число тест-объектов')
             self.ui.lineEdit.clear()
         except Exception:
             QtWidgets.QMessageBox.warning(self, 'Ошибка', 'Поле не заполнено. Введите количество тест-объектов')
             self.ui.lineEdit.clear()
+        if (flag1 == True) and (flag2 == True):
+            self.ui.pushButton5.setEnabled(True)
+            self.ui.pushButton6.setEnabled(True)
 
     def preview(self):
         dialog = QtPrintSupport.QPrintPreviewDialog()
@@ -311,7 +327,6 @@ class mywindow(QtWidgets.QMainWindow):
         # printer = QtPrintSupport.QPrinter(QtPrintSupport.QPrinter.HighResolution)
         # printer.setOutputFormat(QtPrintSupport.QPrinter.PdfFormat)
         # printer.setOutputFileName(fn)
-
         dialog = QtPrintSupport.QPrintDialog()
         if dialog.exec_() == QtPrintSupport.QPrintDialog.Accepted:
             self.handle_paint_request(dialog.printer())
@@ -323,6 +338,18 @@ class mywindow(QtWidgets.QMainWindow):
         # painter.setWindow(self.ui.tableWidget.rect())
         self.ui.centralwidget.render(painter)
         painter.end()
+
+    def data_transfer(self):
+        data = ' '.join(str(x) for x in self.ui.t_sum_1)
+        command = 'echo | set /p nul=' + data.strip() + '| clip'
+        os.system(command)
+        QtWidgets.QMessageBox.warning(self, 'Копирование', 'Сохранены значения тест-объектов 0-50!')
+
+    def data_transfer_2(self):
+        data = ' '.join(str(x) for x in self.ui.t_sum_2)
+        command = 'echo | set /p nul=' + data.strip() + '| clip'
+        os.system(command)
+        QtWidgets.QMessageBox.warning(self, 'Копирование', 'Сохранены значения тест-объектов 50-100!')
 
     def new_form(self):
         self.qwe = mywindow2()
